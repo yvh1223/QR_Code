@@ -89,6 +89,13 @@ https://github.com/yvh1223/QR_Code/blob/main/Gscript.py
 | Y          | H         | Y-H       | yh@gmail.com      | QR Code - Dallas Boys Party 2024 | [Google Form](#)                | [QR Code](#)                   | QR Code Image                 |
 | C          | S         | C-S       | cs@gmail.com      | QR Code - Dallas Boys Party 2024 | [Google Form](#)                | [QR Code](#)                   | QR Code Image                 |
 
+Excel sheet formule: 
+  Google Form Link =
+   "https://docs.google.com/forms/d/e/1FAIpQLSco8pvBHP5GXSpdGTOmKlevsM5t1U-00-ruKEnvuOBx4gJ-dg/formResponse?entry.232573758="&C2
+  QR Code URL =
+  "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="&F2
+ QR Code Image =
+  =image(G2)
 
 **Sample Google Form (To capture Check-ins): 
 **https://docs.google.com/forms/d/1NWSpi2RLNuTU46MK03S3fw3EDvzzwo1opzhZhrvz_NU/edit
