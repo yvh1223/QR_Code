@@ -36,4 +36,7 @@ Send emails in small batches, e.g., only 10 emails at a time.
 **Sample code (Google Script to send Email) : 
 **https://github.com/yvh1223/QR_Code/blob/main/Gscript.py
 
+**Sample Google Form (To capture Check-ins): 
+**https://docs.google.com/forms/d/1NWSpi2RLNuTU46MK03S3fw3EDvzzwo1opzhZhrvz_NU/edit
+
 
