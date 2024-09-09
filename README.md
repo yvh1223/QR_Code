@@ -1,42 +1,98 @@
+# Guest Check-In and QR Code Email Automation
 
+This project outlines the steps to automate guest check-ins using QR codes and email communication. It involves collecting guest information, generating QR codes from Google Form responses, and sending emails using Google Apps Script.
 
-Guest Check-In Process Automation
-This process outlines how to automate capturing guest details, generating QR codes, and sending sign-in emails for event check-ins.
+## Process Overview
 
-**Steps Overview
-**
+### Step 1: Collect Guest Information
 
-Step 1: Capture Guest Information
-Task: Collect guest details, including their email addresses.
-1.1: Email is mandatory for each guest.
-1.2: Owners will also provide the number of bands to be given to each guest.
-1.3: As some guests may make last-minute payments, these steps need to be repeated often. Inform owners that QR codes will be sent in batches to streamline the process.
-1.4: Email subject headers should include the keyword "QR-Code - SOMETHING" for easier identification.
-1.5: Gmail accounts can send up to 500 emails per day, which is important to note when batching emails.
+**Task**: Collect the guest's first name, last name, and email address.
 
-Step 2: Google Form for Attendance Tracking
-Task: Create a Google Form and capture sample responses using the guest's first and last names for later use in attendance tracking.
+- **Required Fields**:
+  - First Name
+  - Last Name
+  - Email Address (mandatory)
+  
+**Notes**:
+- The guest's email address is required to send the QR code.
+- Event owners may also provide the number of wristbands or tickets assigned to each guest.
+- Inform event owners that guests making last-minute payments will need to have QR codes sent in batches.
 
-Step 3: Generate Sign-In Links
-Task: For each guest, generate an individual sign-in link using their name and the event's Google Form for check-in tracking.
+**Constraints**:
+- Gmail accounts have a limit of **500 emails per day**, so plan accordingly for batch sending.
 
-Step 4: Prevent Duplicate Check-Ins
-Task: Validate guest check-ins to prevent duplicate entries by cross-referencing previous sign-ins to ensure guests are only checked in once.
+### Step 2: Create a Google Form for Attendance
 
-**Best Practices
-**
+**Task**: Create a Google Form to collect responses for guest check-ins.
 
-Send emails in small batches, e.g., only 10 emails at a time.
+1. **Form Fields**:
+   - First Name
+   - Last Name
+   - Email Address
+
+2. **Sample Response**:
+   After setting up the form, make a few sample entries. This will generate a unique response URL for each guest.
+
+3. **Use Case**:
+   The sample response URL will be used later to generate a QR code for each guest’s check-in.
+
+### Step 3: Generate QR Codes
+
+**Task**: Generate a QR code for each guest based on their Google Form response URL.
+
+- The Google Form submission will generate a unique URL.
+- Use this URL to create a QR code using a QR code generation API such as `qrserver.com`.
+
+**Example**:
+QR Code API: https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Google_Form_Response_URL
 
 
 **Send Email - QR Code - Template
 **https://docs.google.com/spreadsheets/d/1XPdaIcgDndq-At378ooiwkPq1uIGf4-ZPXqJ3A7EuzQ/edit?gid=0#gid=0
 
 
-**Sample code (Google Script to send Email) : 
-**https://github.com/yvh1223/QR_Code/blob/main/Gscript.py
+Step 4: Send QR Codes via Email
+Task: Send an email to each guest with their unique QR code.
+
+Use Google Apps Script to automate the email-sending process.
+The script will generate a custom email for each guest containing their name, event details, and QR code.
+Google Apps Script:
+https://github.com/yvh1223/QR_Code/blob/main/Gscript.py
+
+## Batch Processing
+
+- **Send emails in batches of 50** to avoid exceeding Gmail limits.
+- **Clean up the spreadsheet** after sending emails to avoid duplicate entries.
+
+## Step 5: Prevent Duplicate Check-Ins
+
+**Task**: Validate and prevent duplicate check-ins.
+
+- When a guest scans their QR code, the system should log the check-in.
+- Ensure that guests cannot check in more than once by validating the guest’s status in the spreadsheet linked to the Google Form.
+
+## Step 6: Customize and Maintain
+
+- **Customizations**: The Google Apps Script allows you to customize the subject and content of the emails.
+- **Spreadsheet Management**: Regularly update and maintain the spreadsheet with guest details, QR codes, and check-in statuses.
+
+## Best Practices
+
+- **Batch Emails**: Limit email batches to **50 guests at a time** to avoid exceeding Gmail's daily limits.
+- **Use Unique QR Codes**: Ensure each guest receives a unique QR code for their check-in.
+- **Regular Cleanup**: Clean up the spreadsheet after processing to avoid re-sending emails or duplicating QR codes.
+
+## Example Spreadsheet Structure
+
+| First Name | Last Name | Full Name | Email Address    | Subject                         | Google Form Link               | QR Code URL                    | QR Code Image                 |
+|------------|-----------|-----------|------------------|---------------------------------|---------------------------------|--------------------------------|-------------------------------|
+| Y          | H         | Y-H       | yh@gmail.com      | QR Code - Dallas Boys Party 2024 | [Google Form](#)                | [QR Code](#)                   | QR Code Image                 |
+| C          | S         | C-S       | cs@gmail.com      | QR Code - Dallas Boys Party 2024 | [Google Form](#)                | [QR Code](#)                   | QR Code Image                 |
+
 
 **Sample Google Form (To capture Check-ins): 
 **https://docs.google.com/forms/d/1NWSpi2RLNuTU46MK03S3fw3EDvzzwo1opzhZhrvz_NU/edit
 
-
+**Sample Google Sheet to Send emails: 
+**
+https://docs.google.com/spreadsheets/d/1XPdaIcgDndq-At378ooiwkPq1uIGf4-ZPXqJ3A7EuzQ/edit?gid=0#gid=0
